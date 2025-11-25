@@ -275,6 +275,23 @@ var wc_add_to_cart_variation_params = {"wc_ajax_url":"\/?wc-ajax=%%endpoint%%","
 					font-family: 'Aptos', 'Segoe UI', 'Calibri', 'Arial', sans-serif !important;
 				}
 
+				/* Asegurar que el header principal se vea bien en desktop */
+				.haru-main-header {
+					background: #fff;
+					box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+				}
+
+				.haru-header-nav-wrap {
+					padding: 10px 0;
+				}
+
+				/* Asegurar que los logos se vean correctamente */
+				.header-logo img,
+				.header-logo-mobile img {
+					display: block;
+					height: auto;
+				}
+
 				/* Mejorar el menú hamburguesa */
 				.toggle-mobile-menu {
 					cursor: pointer;
@@ -335,13 +352,15 @@ var wc_add_to_cart_variation_params = {"wc_ajax_url":"\/?wc-ajax=%%endpoint%%","
 					position: fixed;
 					top: 0;
 					left: -100%;
-					width: 280px;
+					width: 300px;
+					max-width: 85%;
 					height: 100vh;
 					background: #fff;
-					box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-					transition: left 0.3s ease;
+					box-shadow: 2px 0 15px rgba(0,0,0,0.2);
+					transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 					z-index: 9998;
 					overflow-y: auto;
+					-webkit-overflow-scrolling: touch;
 				}
 
 				.haru-mobile-header-nav.active {
@@ -352,11 +371,13 @@ var wc_add_to_cart_variation_params = {"wc_ajax_url":"\/?wc-ajax=%%endpoint%%","
 					padding: 20px;
 					background: #000;
 					color: #fff;
-					font-size: 18px;
-					font-weight: bold;
+					font-size: 16px;
+					font-weight: 600;
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
+					letter-spacing: 1px;
+					text-transform: uppercase;
 				}
 
 				.mobile-menu-close {
@@ -392,20 +413,74 @@ var wc_add_to_cart_variation_params = {"wc_ajax_url":"\/?wc-ajax=%%endpoint%%","
 				}
 
 				.haru-nav-mobile-menu li {
-					border-bottom: 1px solid #eee;
+					border-bottom: 1px solid #f0f0f0;
 				}
 
 				.haru-nav-mobile-menu li a {
 					display: block;
-					padding: 15px 20px;
+					padding: 16px 20px;
 					color: #333;
 					text-decoration: none;
-					transition: background 0.3s ease;
+					transition: all 0.3s ease;
+					font-size: 14px;
+					font-weight: 500;
+					position: relative;
 				}
 
-				.haru-nav-mobile-menu li a:hover {
-					background: #f5f5f5;
+				.haru-nav-mobile-menu li a:hover,
+				.haru-nav-mobile-menu li a:active {
+					background: #fbf4eb;
 					color: #000;
+					padding-left: 25px;
+				}
+
+				/* Estilos para el header móvil */
+				.haru-mobile-header-container {
+					padding: 0 15px;
+				}
+
+				.haru-mobile-header-inner {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					height: 60px;
+				}
+
+				.header-logo-mobile img {
+					max-height: 40px;
+					width: auto;
+				}
+
+				/* Social icons en el menú móvil */
+				.mobile-header-social {
+					padding: 20px;
+					border-top: 1px solid #f0f0f0;
+					margin-top: 20px;
+				}
+
+				.header-social-network-wrap {
+					display: flex;
+					gap: 15px;
+					padding: 0;
+					margin: 0;
+					list-style: none;
+				}
+
+				.header-social-network-wrap li a {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					width: 40px;
+					height: 40px;
+					background: #000;
+					color: #fff;
+					border-radius: 50%;
+					transition: all 0.3s ease;
+				}
+
+				.header-social-network-wrap li a:hover {
+					background: #333;
+					transform: scale(1.1);
 				}
 
 				/* Overlay cuando el menú está abierto */
@@ -428,7 +503,7 @@ var wc_add_to_cart_variation_params = {"wc_ajax_url":"\/?wc-ajax=%%endpoint%%","
 				}
 
 				/* Optimización para móvil del slider Hero */
-				@media (max-width: 768px) {
+				@media (max-width: 1240px) {
 					.haru-mobile-header-wrap {
 						display: block !important;
 						position: fixed;
@@ -438,38 +513,107 @@ var wc_add_to_cart_variation_params = {"wc_ajax_url":"\/?wc-ajax=%%endpoint%%","
 						z-index: 9999;
 						background: #fff;
 						box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+						padding: 10px 0;
 					}
 
 					.haru-main-header {
 						display: none !important;
 					}
 
-					/* Ajustar el slider para móvil */
-					#rev_slider_1_1_wrapper {
-						margin-top: 60px !important;
+					/* Asegurar que el contenido no quede tapado por el header fijo */
+					body {
+						padding-top: 70px;
 					}
 
+					#rev_slider_1_1_wrapper {
+						margin-top: 0 !important;
+					}
+				}
+
+				@media (max-width: 778px) {
+					/* Ajustar el slider para tablet */
 					rs-layer {
 						text-align: center !important;
 					}
 
-					/* Ajustar tamaños de texto en el slider */
+					.rs-layer {
+						font-size: 36px !important;
+						line-height: 40px !important;
+					}
+
+					.slide-button {
+						padding: 12px 25px !important;
+						font-size: 14px !important;
+					}
+				}
+
+				@media (max-width: 480px) {
+					/* Ajustar para móviles pequeños */
+					body {
+						padding-top: 60px;
+					}
+
 					.rs-layer {
 						font-size: 24px !important;
 						line-height: 30px !important;
 					}
 
-					/* Mejorar el botón RESERVA AHORA en móvil */
 					.slide-button {
 						padding: 10px 20px !important;
 						font-size: 13px !important;
 					}
 				}
 
-				@media (min-width: 769px) {
+				@media (min-width: 1241px) {
 					.haru-mobile-header-wrap {
 						display: none !important;
 					}
+
+					body {
+						padding-top: 0;
+					}
+				}
+
+				/* Asegurar que el contenido principal se vea bien */
+				.page-content {
+					width: 100%;
+				}
+
+				/* Ajustes para secciones */
+				.vc_row {
+					width: 100%;
+					max-width: 100%;
+				}
+
+				/* Mejorar la visibilidad de los botones */
+				.slide-button,
+				.rev-btn {
+					cursor: pointer !important;
+					transition: all 0.3s ease !important;
+				}
+
+				.slide-button:hover,
+				.rev-btn:hover {
+					opacity: 0.9 !important;
+				}
+
+				/* Asegurar que las imágenes se carguen correctamente */
+				img {
+					max-width: 100%;
+					height: auto;
+				}
+
+				/* Tipografías específicas del sitio original */
+				h1, h2, h3, h4, h5, h6,
+				.vc_custom_heading {
+					font-family: 'Playfair Display', serif;
+				}
+
+				body,
+				p,
+				a,
+				.menu a {
+					font-family: 'Lato', 'Arial', sans-serif;
 				}
 			</style>
 			<meta name="generator" content="Powered by WPBakery Page Builder - drag and drop page builder for WordPress.">
