@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Phone } from 'lucide-react';
+import { MapPin, Phone, Mail, ExternalLink } from 'lucide-react';
 import { SalonLocation } from '../types';
 
 const salons: SalonLocation[] = [
@@ -9,6 +9,7 @@ const salons: SalonLocation[] = [
     name: 'ChicBilbao Urkijo',
     address: 'Alameda Urquijo 94, 48013 Bilbao',
     phone: '944 022 673',
+    email: 'urkijo@chicbilbao.com',
     image: 'https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?q=80&w=1200&auto=format&fit=crop'
   },
   {
@@ -16,9 +17,14 @@ const salons: SalonLocation[] = [
     name: 'ChicBilbao Zunzunegui',
     address: 'Juan Antonio Zunzunegui 7, 48013 Bilbao',
     phone: '946 570 412',
+    email: 'zunzunegui@chicbilbao.com',
     image: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=1200&auto=format&fit=crop'
   }
 ];
+
+const getGoogleMapsUrl = (address: string) => {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+};
 
 export const SalonsSection: React.FC = () => {
   return (
@@ -39,32 +45,43 @@ export const SalonsSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2, duration: 0.6 }}
-              className="group relative cursor-pointer"
+              className="group relative"
             >
+              {/* Nombre encima de la foto */}
+              <div className="text-center mb-4 group-hover:-translate-y-1 transition-transform duration-300">
+                <h3 className="text-2xl font-serif text-chic-black mb-2 group-hover:text-chic-gold transition-colors">{salon.name}</h3>
+                <div className="h-[1px] w-12 bg-chic-black mx-auto group-hover:bg-chic-gold transition-colors duration-300"></div>
+              </div>
+
               <div className="aspect-[4/3] overflow-hidden relative mb-6">
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500 z-10" />
-                <img 
-                  src={salon.image} 
-                  alt={salon.name} 
+                <img
+                  src={salon.image}
+                  alt={salon.name}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                
+
                 {/* Floating Contact Card on Hover */}
                 <div className="absolute bottom-0 left-0 right-0 p-6 z-20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 bg-white/95 backdrop-blur-sm border-t-2 border-chic-gold">
                    <div className="flex items-center gap-3 mb-2 text-chic-black">
                      <Phone size={18} className="text-chic-gold" />
-                     <a href={`tel:${salon.phone.replace(/\s/g, '')}`} className="text-lg font-serif">{salon.phone}</a>
+                     <a href={`tel:${salon.phone.replace(/\s/g, '')}`} className="text-lg font-serif hover:text-chic-gold transition-colors">{salon.phone}</a>
                    </div>
-                   <div className="flex items-center gap-3 text-chic-gray text-sm">
-                     <MapPin size={16} />
+                   <div className="flex items-center gap-3 mb-2 text-chic-black">
+                     <Mail size={18} className="text-chic-gold" />
+                     <a href={`mailto:${salon.email}`} className="text-sm hover:text-chic-gold transition-colors">{salon.email}</a>
+                   </div>
+                   <a
+                     href={getGoogleMapsUrl(salon.address)}
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     className="flex items-center gap-3 text-chic-gray text-sm hover:text-chic-gold transition-colors group/link"
+                   >
+                     <MapPin size={16} className="text-chic-gold" />
                      <span>{salon.address}</span>
-                   </div>
+                     <ExternalLink size={14} className="opacity-0 group-hover/link:opacity-100 transition-opacity" />
+                   </a>
                 </div>
-              </div>
-
-              <div className="text-center group-hover:-translate-y-2 transition-transform duration-300">
-                <h3 className="text-2xl font-serif text-chic-black mb-2 group-hover:text-chic-gold transition-colors">{salon.name}</h3>
-                <div className="h-[1px] w-12 bg-chic-black mx-auto group-hover:bg-chic-gold transition-colors duration-300"></div>
               </div>
             </motion.div>
           ))}

@@ -3,6 +3,7 @@ export interface SalonLocation {
   name: string;
   address: string;
   phone: string;
+  email: string;
   image: string;
 }
 

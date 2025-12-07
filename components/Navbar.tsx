@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ShoppingBag } from 'lucide-react';
+import { Menu, X, ShoppingBag, Search } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,6 +59,27 @@ export const Navbar: React.FC = () => {
 
         {/* Icons */}
         <div className="hidden md:flex items-center gap-4 text-white">
+            <div className="relative flex items-center">
+              <AnimatePresence>
+                {isSearchOpen && (
+                  <motion.input
+                    initial={{ width: 0, opacity: 0 }}
+                    animate={{ width: 200, opacity: 1 }}
+                    exit={{ width: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    type="text"
+                    placeholder="Buscar..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="absolute right-8 bg-white/10 backdrop-blur-md border border-white/30 rounded-full px-4 py-1 text-sm text-white placeholder-white/60 focus:outline-none focus:border-chic-gold"
+                  />
+                )}
+              </AnimatePresence>
+              <Search
+                className="w-5 h-5 cursor-pointer hover:text-chic-gold transition-colors"
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
+              />
+            </div>
             <ShoppingBag className="w-5 h-5 cursor-pointer hover:text-chic-gold transition-colors" />
         </div>
 
@@ -77,6 +100,17 @@ export const Navbar: React.FC = () => {
               exit={{ opacity: 0, x: '100%' }}
               className="fixed inset-0 bg-chic-black z-40 flex flex-col items-center justify-center space-y-8"
             >
+              {/* Mobile Search */}
+              <div className="relative w-64 mb-4">
+                <input
+                  type="text"
+                  placeholder="Buscar..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-white/10 backdrop-blur-md border border-white/30 rounded-full px-4 py-2 text-sm text-white placeholder-white/60 focus:outline-none focus:border-chic-gold"
+                />
+                <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/60" />
+              </div>
               {links.map((link) => (
                 <a
                   key={link.name}
